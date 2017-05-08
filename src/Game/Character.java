@@ -21,7 +21,7 @@ public class Character extends JPanel implements ActionListener, KeyListener{
 	public Character(String s) {
 		JFrame frame = new JFrame("Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
- 
+        int i = 0;
         Character pm = new Character();
         frame.addKeyListener(pm);
         frame.add(pm);
