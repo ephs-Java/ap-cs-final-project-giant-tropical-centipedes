@@ -15,92 +15,49 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
-public class Character extends JPanel implements ActionListener, KeyListener{
-	int w, h;
-	
-	public Character(String s) {
-		JFrame frame = new JFrame("Game");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        int i = 0;
-        Character pm = new Character();
-        frame.addKeyListener(pm);
-        frame.add(pm);
-        frame.setSize(500, 500);
-        frame.setVisible(true);
-        
-        w = frame.getWidth();
-        h = frame.getHeight();
-	}
-	
-	private static final long serialVersionUID = 1L;
-	private static int delay = 5;
-	protected Timer timer;
-	
-	public Character() {
-		timer = new Timer(delay, this);
-		timer.start();
-	}
-	
-	public static void main(String[] args) {
-		Character c = new Character("");
-	}
-	
-	//*****************************\\
-	// \/\/\/ Game Code Here \/\/\/
-	//*****************************\\
-	
-    private int x = 100; // x position 
-    private int y = 100; // y position
-    private int size = 15;
-    //private int xSpeed;
-    //private int ySpeed;
+public class Character {
+
+    public int x; // x position 
+    public int y; // y position
+    private int size;
     
     boolean up = false, down = false, left = false, right = false;
 	
-    int frameRate = 10;
-    int counter = frameRate;
-    public void iterate() {
-    	if(counter == 0) {
-    		if(up) {
-    			y-=size;
-    		}
-    	
-    		else if(down) {
-    			y+=size;
-    		}
-    	
-    		else if(left) {
-    			x-=size;
-    		}
-    	
-    		else if(right) {
-    			x+=size;
-    		}
-    		counter = frameRate;
-    	}
-    	else {
-    		counter --;
-    	}
+	public Character(int x, int y, int size) {
+		this.x = x;
+		this.y = y;
+		this.size = size;
+	}
+	
+    
+    public void move() {
+    	if(up) {
+			y-=size;
+		}
+	
+		else if(down) {
+			y+=size;
+		}
+	
+		else if(left) {
+			x-=size;
+		}
+	
+		else if(right) {
+			x+=size;
+		}
     }
     
-    @Override
-    public void paintComponent(Graphics g) {
+    public void draw(Graphics g) {
     	g.setColor(Color.yellow);
     	g.fillOval(x, y, size, size);
     	g.setColor(Color.black);
     	g.drawOval(x, y, size, size);
-    	
-    	iterate();
-    }
+   }
     
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+ 
 
-	@Override
-	public void keyPressed(KeyEvent e) {
+	public void press(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_RIGHT:
 				right = true;
@@ -118,8 +75,7 @@ public class Character extends JPanel implements ActionListener, KeyListener{
 		
 	}
 
-	@Override
-	public void keyReleased(KeyEvent e) {
+	public void release(KeyEvent e) {
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_RIGHT:
 				right = false;
@@ -135,13 +91,6 @@ public class Character extends JPanel implements ActionListener, KeyListener{
 				break;
 		}
 		
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-		repaint();
 	}
 
 }
