@@ -1,11 +1,14 @@
-package Walls;
+package Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
+import Walls.Collider;
+import Walls.Player;
+
 public class Wall implements Collider{
 	int x, y; //Corner Point
-	int size = 50;
+	int size = 10;
 	
 	public Wall(int x, int y) {
 		this.x = x;

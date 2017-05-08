@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import Game.Wall;
+
 public class Tester extends JPanel implements ActionListener, KeyListener{
 
 	int w, h;

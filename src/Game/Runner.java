@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -47,12 +48,13 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 	int scale = 10;
 	Character c = new Character(20, 20, scale);
 	
+	ArrayList<Wall> walls = new ArrayList<Wall>();
 	
 	int frameRate = 10;
 	int counter = frameRate;
-	public void iterate() {
+	public void iterate() {		
 		if(counter == 0) {
-			c.move();
+			c.move(walls);
 			counter = frameRate;
 		}
 		else {
@@ -60,9 +62,26 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 		}
 	}
 	
+	boolean start = true;
+	
 	@Override
 	public void paintComponent(Graphics g) {
+		if(start) {
+			walls.add(new Wall(100, 100));
+			walls.add(new Wall(120, 100));
+			walls.add(new Wall(100, 110));
+			walls.add(new Wall(120, 110));
+			walls.add(new Wall(100, 120));
+			walls.add(new Wall(110, 120));
+			walls.add(new Wall(120, 120));
+			start = false;
+		}
+
 		c.draw(g);
+		
+		for(Wall w : walls) {
+			w.draw(g);
+		}
 		
 		iterate();
 	}

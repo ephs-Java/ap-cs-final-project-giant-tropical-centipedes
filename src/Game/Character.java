@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Random;
  
 import javax.swing.JFrame;
@@ -30,7 +31,9 @@ public class Character {
 	}
 	
     
-    public void move() {
+    public void move(ArrayList<Wall> walls) {
+    	int px = x, py = y;
+    	
     	if(up) {
 			y-=size;
 		}
@@ -46,6 +49,13 @@ public class Character {
 		else if(right) {
 			x+=size;
 		}
+    	
+    	for(Wall w : walls) {
+    		if(w.x == x && w.y == y) {
+    			x = px;
+    			y = py;
+    		}
+    	}
     }
     
     public void draw(Graphics g) {
@@ -59,16 +69,16 @@ public class Character {
 
 	public void press(KeyEvent e) {
 		switch (e.getKeyCode()) {
-			case KeyEvent.VK_RIGHT:
+			case KeyEvent.VK_D:
 				right = true;
 				break;
-			case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_A:
 				left = true;
 				break;
-			case KeyEvent.VK_DOWN:
+			case KeyEvent.VK_S:
 				down = true;
 				break;
-			case KeyEvent.VK_UP:
+			case KeyEvent.VK_W:
 				up = true;
 				break;
 		}
@@ -77,16 +87,16 @@ public class Character {
 
 	public void release(KeyEvent e) {
 		switch(e.getKeyCode()) {
-			case KeyEvent.VK_RIGHT:
+			case KeyEvent.VK_D:
 				right = false;
 				break;
-			case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_A:
 				left = false;
 				break;
-			case KeyEvent.VK_DOWN:
+			case KeyEvent.VK_S:
 				down = false;
 				break;
-			case KeyEvent.VK_UP:
+			case KeyEvent.VK_W:
 				up = false;
 				break;
 		}

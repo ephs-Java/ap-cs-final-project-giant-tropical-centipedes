@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import Game.Wall;
+
 public class Player {
 	public int x, y;
 	
