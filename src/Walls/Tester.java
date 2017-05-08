@@ -1,21 +1,24 @@
-package Game;
+package Walls;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class Runner extends JPanel implements ActionListener, KeyListener{
+public class Tester extends JPanel implements ActionListener, KeyListener{
 
 	int w, h;
 	
-	public Runner(String s) {
+	public Tester(String s) {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		Runner r = new Runner();
+		Tester r = new Tester();
 		frame.addKeyListener(r);
 		frame.add(r);
 		frame.setSize(500, 500);
@@ -30,28 +33,55 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 	private static int delay = 5;
 	private Timer timer;
 	
-	public Runner() {
+	public Tester() {
 		timer = new Timer(delay, this);
+		timer.start();
 	}
 	
 	public static void main(String[] args) {
-		Runner r = new Runner("");
+		
+		Tester r = new Tester("");
 	}
 	
 	//******************************\\
 	// \/\/\/ Game Code Here \/\/\/ \\
 	//******************************\\
+	
+	Player p = new Player(50, 50);
+	
+	ArrayList<Wall> walls = new ArrayList<Wall>();
+	
+	boolean start = true;
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		if(start) {
+			walls.add(new Wall(100, 100));
+			walls.add(new Wall(100, 150));
+			walls.add(new Wall(100, 200));
+			walls.add(new Wall(150, 200));
+			walls.add(new Wall(200, 200));
+			walls.add(new Wall(200, 150));
+			walls.add(new Wall(200, 100));
+			start = false;
+		}
+		p.draw(g);
+		for(Wall w : walls) {
+			w.draw(g);
+		}
 		
+		g.setColor(Color.black);
+	}
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		p.move(e, walls);
 	}
 
 	@Override
@@ -64,6 +94,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+		repaint();
 	}
 	
 }
