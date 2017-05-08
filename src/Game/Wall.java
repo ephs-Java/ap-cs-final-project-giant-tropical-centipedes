@@ -8,11 +8,13 @@ import Walls.Player;
 
 public class Wall implements Collider{
 	int x, y; //Corner Point
-	int size = 10;
+	int size;
 	
-	public Wall(int x, int y) {
+	public Wall(int x, int y, int size) {
 		this.x = x;
 		this.y = y;
+		
+		this.size = size;
 	}
 	
 	@Override

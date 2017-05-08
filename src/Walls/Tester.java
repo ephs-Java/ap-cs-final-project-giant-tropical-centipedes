@@ -58,13 +58,13 @@ public class Tester extends JPanel implements ActionListener, KeyListener{
 	@Override
 	public void paintComponent(Graphics g) {
 		if(start) {
-			walls.add(new Wall(100, 100));
-			walls.add(new Wall(100, 150));
-			walls.add(new Wall(100, 200));
-			walls.add(new Wall(150, 200));
-			walls.add(new Wall(200, 200));
-			walls.add(new Wall(200, 150));
-			walls.add(new Wall(200, 100));
+			walls.add(new Wall(100, 100, 50));
+			walls.add(new Wall(100, 150, 50));
+			walls.add(new Wall(100, 200, 50));
+			walls.add(new Wall(150, 200, 50));
+			walls.add(new Wall(200, 200, 50));
+			walls.add(new Wall(200, 150, 50));
+			walls.add(new Wall(200, 100, 50));
 			start = false;
 		}
 		p.draw(g);

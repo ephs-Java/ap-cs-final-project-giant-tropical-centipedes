@@ -67,13 +67,13 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 	@Override
 	public void paintComponent(Graphics g) {
 		if(start) {
-			walls.add(new Wall(100, 100));
-			walls.add(new Wall(120, 100));
-			walls.add(new Wall(100, 110));
-			walls.add(new Wall(120, 110));
-			walls.add(new Wall(100, 120));
-			walls.add(new Wall(110, 120));
-			walls.add(new Wall(120, 120));
+			walls.add(new Wall(100, 100, scale));
+			walls.add(new Wall(120, 100, scale));
+			walls.add(new Wall(100, 110, scale));
+			walls.add(new Wall(120, 110, scale));
+			walls.add(new Wall(100, 120, scale));
+			walls.add(new Wall(110, 120, scale));
+			walls.add(new Wall(120, 120, scale));
 			start = false;
 		}
 
