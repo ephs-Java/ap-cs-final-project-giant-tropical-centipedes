@@ -1,10 +1,19 @@
-package Game;
+package Ghost;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
-
+import java.util.Random;
+ 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class Character {
 
@@ -64,6 +73,8 @@ public class Character {
     	g.drawOval(x, y, size, size);
    }
     
+ 
+
 	public void press(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_D:
@@ -100,5 +111,4 @@ public class Character {
 		
 	}
 
-	
 }
