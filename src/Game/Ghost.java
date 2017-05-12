@@ -1,4 +1,4 @@
-package Ghost;
+package Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,7 +8,7 @@ public class Ghost {
 	int x, y;
 	int size;
 
-	int speed = 5;
+	int speed = 2;
 
 	public Ghost(int x, int y, int scale) {
 		this.x = x;
@@ -24,7 +24,7 @@ public class Ghost {
 	}
 
 	int counter = speed;
-	public void move(ArrayList<Wall> walls, Character c) {
+	public void move(ArrayList<Wall> walls, ArrayList<Ghost> g, Character c) {
 		if(counter == 0) {
 			Vector up = new Vector(x, y - size);
 			Vector down = new Vector(x, y + size);
@@ -37,23 +37,28 @@ public class Ghost {
 			Vector downDiff = Vector.sub(down, v);
 			Vector leftDiff = Vector.sub(left, v);
 			Vector rightDiff = Vector.sub(right, v);
+			
+			upDiff.sub(Math.random() * 20);
+			downDiff.sub(Math.random() * 20);
+			leftDiff.sub(Math.random() * 20);
+			rightDiff.sub(Math.random() * 20);
 
 			
-			if(wallCollide(down, walls)) {
+			if(wallCollide(down, walls) || ghostCollide(down, g)) {
 				downDiff.setMag(10000);
 			}
 
-			if(wallCollide(left, walls)) {
+			if(wallCollide(left, walls) || ghostCollide(left, g)) {
 				leftDiff.setMag(10000);
 			}
 
-			if(wallCollide(right, walls)) {
+			if(wallCollide(right, walls) || ghostCollide(right, g)) {
 				rightDiff.setMag(10000);
 			}
 
 			String dir = "none";
 			Vector smallest = new Vector(1000, 1000);
-			if(!wallCollide(up, walls)) {
+			if(!wallCollide(up, walls) && !ghostCollide(down, g)) {
 				dir = "up";
 				smallest = new Vector(upDiff.x, upDiff.y);
 			}
@@ -98,6 +103,14 @@ public class Ghost {
 	private boolean wallCollide(Vector pos, ArrayList<Wall> walls) {
 		for(Wall w : walls) {
 			if(w.x == pos.x && w.y == pos.y) return true;
+		}
+
+		return false;
+	}
+	
+	private boolean ghostCollide(Vector pos, ArrayList<Ghost> g) {
+		for(Ghost gs : g) {
+			if(gs.x == pos.x && gs.y == pos.y) return true;
 		}
 
 		return false;

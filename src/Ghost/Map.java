@@ -38,7 +38,7 @@ public class Map extends ArrayList<Wall> {
 		}
 		
 		for(int i = 0; i < w; i += scale) {
-			add(new Wall(i, h - scale, scale));
+			add(new Wall(i, h - scale * 2, scale));
 		}
 	}
 	
