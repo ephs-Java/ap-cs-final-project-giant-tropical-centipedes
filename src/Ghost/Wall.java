@@ -7,7 +7,7 @@ import Walls.Collider;
 import Walls.Player;
 
 public class Wall implements Collider{
-	public int x, y; //Corner Point
+	int x, y; //Corner Point
 	int size;
 	
 	public Wall(int x, int y, int size) {

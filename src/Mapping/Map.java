@@ -14,6 +14,7 @@ public class Map {
 	
 	public ArrayList<Wall> walls = new ArrayList<Wall>();
 	
+	
 	public Map(String map, int scale) {
 		int mx = 0, my = 0;
 		
@@ -42,7 +43,7 @@ public class Map {
 			my = y > my ? y : my;
 		}
 		
-		width = mx * scale;
+		width = (mx - 1) * scale;
 		height = my * scale + 23;
 		
 	}

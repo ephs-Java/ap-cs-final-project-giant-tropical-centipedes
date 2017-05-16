@@ -1,84 +1,55 @@
 package Ghost;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Map extends ArrayList<Wall> {
-	int scale = 10;
+public class Map {
 	
-	int w, h;
+				
+	public Vector start;
 	
-	public Map(int w, int h) {
-		this.w = w;
-		this.h = h;
+	int scale;
+	
+	int width, height;
+	
+	public ArrayList<Wall> walls = new ArrayList<Wall>();
+	
+	public ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
+	
+	public Map(String map, int scale) {
+		int mx = 0, my = 0;
 		
-		generateMap();
-	}
-	
-	public void generateMap() {
-		clear();
-		for(int i = 0; i < h; i += scale) {
-			for(int j = 0; j < w; j += scale) {
-				int rand = (int)(Math.random() * 100);
-				if(rand < 5) {
-					add(new Wall(j, i, scale));
-				}
+		start = new Vector();
+		this.scale = scale;
+		int x = 0; int y = 0;
+		for(int i = 0; i < map.length(); i++) {
+			if(map.charAt(i) == '*') {
+				walls.add(new Wall(x * scale, y * scale, scale));
 			}
+			
+			if(map.charAt(i) == '0') {
+				start = new Vector(x * scale, y * scale);
+			}
+			
+			if(map.charAt(i) == 'x') {
+				ghosts.add(new Ghost(x * scale, y * scale, scale));
+			}
+			
+			if(map.charAt(i) == '-') {
+				x = 0;
+				y++;
+			}
+			else {
+				x++;
+			}
+			
+			
+			mx = x > mx ? x : mx;
+			my = y > my ? y : my;
 		}
 		
-		for(int i = 0; i < h; i+= scale) {
-			add(new Wall(0, i, scale));
-		}
+		width = mx * scale;
+		height = my * scale + 23;
 		
-		for(int i = 0; i < h; i+= scale) {
-			add(new Wall(w - scale, i, scale));
-		}
-		
-		for(int i = 0; i < w; i += scale) {
-			add(new Wall(i, 0, scale));
-		}
-		
-		for(int i = 0; i < w; i += scale) {
-			add(new Wall(i, h - scale * 2, scale));
-		}
-	}
-	
-	public static void main(String[] args) {
-		Map m = new Map(500, 500);
-	}
-	
-	public boolean up(int x, int y) {
-		for(Wall w : this) {
-			if(y - scale == w.y && x == w.x) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	public boolean down(int x, int y) {
-		for(Wall w : this) {
-			if(y + scale == w.y && x == w.x) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	public boolean left(int x, int y) {
-		for(Wall w : this) {
-			if(x - scale == w.x && y == w.y) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	public boolean right(int x, int y) {
-		for(Wall w : this) {
-			if(x + scale == w.x && y == w.y) {
-				return false;
-			}
-		}
-		return true;
 	}
 }

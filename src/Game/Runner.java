@@ -11,7 +11,7 @@ import javax.swing.*;
 
 public class Runner extends JPanel implements ActionListener, KeyListener{
 
-	int w, h;
+	int w = 500, h = 500;
 	
 	public Runner(String s) {
 		JFrame frame = new JFrame();
@@ -20,11 +20,8 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 		Runner r = new Runner();
 		frame.addKeyListener(r);
 		frame.add(r);
-		frame.setSize(500, 500);
+		frame.setSize(w, h);
 		frame.setVisible(true);
-		
-		w = frame.getWidth();
-		h = frame.getHeight();
 	}
 	
 	

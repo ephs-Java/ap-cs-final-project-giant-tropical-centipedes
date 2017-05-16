@@ -11,7 +11,18 @@ import javax.swing.*;
 
 public class Runner extends JPanel implements ActionListener, KeyListener{
 
-	int w = 500, h = 500;
+	String map = "*****************-"
+				+"*       x       *-"
+				+"*       *       *-"
+				+"* ***   *   *** *-"
+				+"*   *   *   *   *-"
+				+"*   *   *   *   *-"
+				+"* ***   *   *** *-"
+				+"*       *       *-"
+				+"*       0       *-"
+				+"*****************-";
+	
+	Map m = new Map(map, 10);
 	
 	public Runner(String s) {
 		JFrame frame = new JFrame();
@@ -20,7 +31,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 		Runner r = new Runner();
 		frame.addKeyListener(r);
 		frame.add(r);
-		frame.setSize(w, h);
+		frame.setSize(m.width, m.height);
 		frame.setVisible(true);
 	}
 	
@@ -43,20 +54,18 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 	//******************************\\
 	
 	int scale = 10;
-	Character c = new Character(20, 20, scale);
-	
-	Map map = new Map(w, h);
-	
-	ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
+	Character c = new Character((int)m.start.x, (int)m.start.y, scale);
 	
 	int frameRate = 10;
 	int counter = frameRate;
 	public void iterate() {		
 		if(counter == 0) {
-			c.move(map);
-			for(Ghost gs : ghosts) {
-				gs.move(map, c);
+			c.move(m.walls);
+			
+			for(Ghost ghost : m.ghosts) {
+				ghost.move();
 			}
+			
 			counter = frameRate;
 		}
 		else {
@@ -69,20 +78,18 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 	@Override
 	public void paintComponent(Graphics g) {
 		if(start) {
-			ghosts.add(new Ghost(100, 100, scale));
-			ghosts.add(new Ghost(150, 150, scale));
-			ghosts.add(new Ghost(200, 150, scale));
+			
 			start = false;
 		}
 
 		c.draw(g);
 		
-		for(Wall w : map) {
+		for(Wall w : m.walls) {
 			w.draw(g);
 		}
 		
-		for(Ghost gs : ghosts) {
-			gs.draw(g);
+		for(Ghost ghost : m.ghosts) {
+			ghost.draw(g);
 		}
 		
 		iterate();
