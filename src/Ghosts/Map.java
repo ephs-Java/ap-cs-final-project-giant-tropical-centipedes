@@ -1,4 +1,4 @@
-package Ghost;
+package Ghosts;
 
 import java.util.ArrayList;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package Ghost;
+package Ghosts;
 
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -12,14 +12,14 @@ import javax.swing.*;
 public class Runner extends JPanel implements ActionListener, KeyListener{
 
 	String map = "*****************-"
-				+"*       x       *-"
+				+"*0      x       *-"
 				+"*       *       *-"
 				+"* ***   *   *** *-"
 				+"*   *   *   *   *-"
 				+"*   *   *   *   *-"
 				+"* ***   *   *** *-"
 				+"*       *       *-"
-				+"*       0       *-"
+				+"*               *-"
 				+"*****************-";
 	
 	Map m = new Map(map, 10);
@@ -67,6 +67,8 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 			}
 			
 			counter = frameRate;
+			
+			c.death(m.ghosts);
 		}
 		else {
 			counter--;

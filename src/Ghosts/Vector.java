@@ -1,4 +1,4 @@
-package Ghost;
+package Ghosts;
 
 public class Vector {
 	public double x, y;
