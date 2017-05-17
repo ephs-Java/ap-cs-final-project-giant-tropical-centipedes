@@ -13,6 +13,14 @@ public class Vector {
 		y = 0;
 	}
 	
+	public int x() {
+		return (int)x;
+	}
+	
+	public int y() {
+		return (int)y;
+	}
+	
 	public int quadrant(Vector origin) {
 		Vector diff = new Vector(x, y);
 		diff.sub(origin);
