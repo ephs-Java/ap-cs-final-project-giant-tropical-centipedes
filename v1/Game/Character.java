@@ -123,6 +123,9 @@ public class Character {
 		lives = 3;
 		food = 0;
 		
+		x = start.x();
+		y = start.y();
+		
 		dead = false;
 	}
 

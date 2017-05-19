@@ -224,7 +224,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_R:
-			if (c.dead) {
+			if (c.dead || admin) {
 				c.reset();
 				map.reset(m2, map.scale);
 				ghost2();
