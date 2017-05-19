@@ -7,7 +7,7 @@ public class Map {
 
 	public Vector start;
 
-	int scale;
+	public int scale;
 
 	int width, height;
 

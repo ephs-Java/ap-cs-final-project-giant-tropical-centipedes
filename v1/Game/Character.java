@@ -139,4 +139,18 @@ public class Character {
 			}
 		}
 	}
+	
+	public void boundary(int w, int h) {
+		if(x < 0) {
+			x = w - size;
+		} else if(x >= w) {
+			x = 0;
+		}
+		
+		if(y < 0) {
+			y = h;
+		} else if(y > h) {
+			y = 0;
+		}
+	}
 }
