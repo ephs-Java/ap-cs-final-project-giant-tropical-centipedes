@@ -9,6 +9,11 @@ public class Vector {
 	}
 	
 	public int x() {
-		return 0;
+		return (int)x;
+	}
+
+	public int y() {
+		// TODO Auto-generated method stub
+		return (int)y;
 	}
 }

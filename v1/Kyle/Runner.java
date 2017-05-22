@@ -13,6 +13,14 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 
 	int w = 500, h = 500;
 	
+	String m= "*****-"
+			+ "  0  -"
+			+ "     -"
+			+ "     -"
+			+ "     ";
+	
+	Map map = new Map(m, 30);
+	
 	public Runner(String s) {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,7 +28,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 		Runner r = new Runner();
 		frame.addKeyListener(r);
 		frame.add(r);
-		frame.setSize(w, h);
+		frame.setSize(map.w, map.h);
 		frame.setVisible(true);
 	}
 	
@@ -66,6 +74,8 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 			
 			start = false;
 		}
+		
+		map.draw(g);
 		
 		iterate();
 	}

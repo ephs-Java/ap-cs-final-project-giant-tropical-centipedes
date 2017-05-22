@@ -3,7 +3,12 @@ package V1_Game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import Nidhi.Powerup;
 
@@ -25,6 +30,10 @@ public class Character {
 	boolean dead = false;
 	
 	int food = 0;
+	
+	BufferedImage example;
+	
+	BufferedImage u, d, l, r;
 
 	public Character(int x, int y, int size) {
 		this.x = x;
@@ -32,6 +41,17 @@ public class Character {
 		this.size = size;
 
 		start = new Vector(x, y);
+		
+		try {
+			example = ImageIO.read(new File("PacMan.png"));
+			u = ImageIO.read(new File("PacManUp.png"));
+			d = ImageIO.read(new File("PacManDown.png"));
+			l = ImageIO.read(new File("PacManLeft.png"));
+			r = ImageIO.read(new File("PacManRight.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	int counter = speed;
@@ -71,10 +91,28 @@ public class Character {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.yellow);
-		g.fillOval(x, y, size, size);
-		g.setColor(Color.black);
-		g.drawOval(x, y, size, size);
+		
+		if(up) {
+			example = u;
+		}
+		
+		if(down) {
+			example = d;
+		}
+		
+		if(left) {
+			example = l;
+		}
+		
+		if(right) {
+			example = r;
+		}
+		
+		g.drawImage(example, x, y, null);
+		//g.setColor(Color.yellow);
+		//g.fillOval(x, y, size, size);
+		//g.setColor(Color.black);
+		//g.drawOval(x, y, size, size);
 	}
 
 	public void press(KeyEvent e) {
