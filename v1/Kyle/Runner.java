@@ -14,7 +14,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener{
 	int w = 500, h = 500;
 	
 	String m= "*****-"
-			+ "     -"
+			+ "  0  -"
 			+ "     -"
 			+ "     -"
 			+ "     ";

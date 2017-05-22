@@ -56,4 +56,22 @@ public class Map {
 			((Wall) board.get(i)).draw(g);
 		}
 	}
+	
+	public void update() {
+		for(int i = 0; i < board.size(); i++) {
+			
+		}
+	}
+	
+	public void press() {
+		for(int i = 0; i < board.size(); i++) {
+			
+		}
+	}
+	
+	public void release() {
+		for(int i = 0; i < board.size(); i++) {
+			
+		}
+	}
 }
