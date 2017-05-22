@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import Nidhi.Powerup;
+
 public class Runner extends JPanel implements ActionListener, KeyListener {
 
 	int w = 500, h = 500;
@@ -65,12 +67,29 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			+ "*                                               *-"
 			+ "*************************************************-";
 
-	String m2 = "+++++++++++++++++++-" + "+++++++++++++++++++-" + "*******************-" + "*x       *    x   *-"
-			+ "* ** *** * *** ** *-" + "* ** *** * *** ** *-" + "*                 *-" + "* ** * ***** * ** *-"
-			+ "*    *   *   *    *-" + "**** *** * *** ****-" + "**** *+++++++* ****-" + "**** *+**+**+* ****-"
-			+ "     ++*+0+*++     -" + "**** *+**+**+* ****-" + "**** *+++++++* ****-" + "**** *** * *** ****-"
-			+ "*    *   *   *    *-" + "* ** * ***** * ** *-" + "*                x*-" + "* ** *** * *** ** *-"
-			+ "* ** *** * *** ** *-" + "*  x              *-" + "*******************-";
+	String m2 = "+++++++++++++++++++-" 
+			  + "+++++++++++++++++++-" 
+			  + "*******************-" 
+			  + "*x ?     *    x   *-"
+			  + "* ** *** * *** ** *-" 
+			  + "* ** *** * *** ** *-" 
+			  + "*                ?*-" 
+			  + "* ** * ***** * ** *-"
+			  + "*    *   *   *    *-" 
+			  + "**** *** * *** ****-" 
+			  + "**** *+++++++* ****-" 
+			  + "**** *+**+**+* ****-"
+			  + "     ++*+0+*++     -" 
+			  + "**** *+**+**+* ****-" 
+			  + "****?*+++++++* ****-" 
+			  + "**** *** * *** ****-"
+			  + "*    *   *   *    *-" 
+			  + "* ** * ***** * ** *-" 
+			  + "*                x*-" 
+			  + "* ** *** * *** ** *-"
+			  + "* ** *** * *** ** *-" 
+			  + "*  x          ?   *-" 
+			  + "*******************-";
 
 	Map map = new Map(m2, 25);
 
@@ -152,6 +171,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			}
 
 			c.eat(map.food);
+			c.eatCherry(map.powerup, map.ghosts);
 
 			c.boundary(map.width, map.height);
 
@@ -181,6 +201,10 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 		for (Wall w : map.walls) {
 			w.draw(g);
 		}
+		
+		for (Powerup p : map.powerup) {
+			p.draw(g);
+		}
 
 		for (Ghost ghost : map.ghosts) {
 			ghost.draw(g);
@@ -203,6 +227,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 
 		iterate();
 	}
+	
 
 	@Override
 	public void keyTyped(KeyEvent e) {

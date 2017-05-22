@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import Nidhi.Powerup;
+
 public class Character {
 
 	public int x; // x position
@@ -33,6 +35,7 @@ public class Character {
 	}
 
 	int counter = speed;
+	private int powerup;
 
 	public void move(ArrayList<Wall> walls) {
 		if (counter == 0) {
@@ -118,6 +121,20 @@ public class Character {
 			}
 		}	
 	}
+	
+	public void eatCherry(ArrayList<Powerup> powerup, ArrayList<Ghost> ghosts) {
+		for(int i = powerup.size() - 1; i >= 0; i--) {
+			if((powerup.get(i).pos.x == x) && (powerup.get(i).pos.y == y)) {
+				this.powerup++;
+				powerup.remove(i);
+				
+				for(Ghost ghost: ghosts) {
+					ghost.counter = 100;
+				}
+			}
+		}
+	}
+
 	
 	public void reset() {
 		lives = 3;

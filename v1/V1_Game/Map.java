@@ -3,6 +3,9 @@ package V1_Game;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Nidhi.Powerup;
+
+
 public class Map {
 
 	public Vector start;
@@ -16,6 +19,8 @@ public class Map {
 	public ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
 
 	public ArrayList<Food> food = new ArrayList<Food>();
+	
+	public ArrayList<Powerup> powerup = new ArrayList<Powerup>();
 
 	public Map(String map, int scale) {
 		int mx = 0, my = 0;
@@ -36,6 +41,10 @@ public class Map {
 			if (map.charAt(i) == 'x') {
 				ghosts.add(new Ghost(x * scale, y * scale, scale));
 				food.add(new Food(x * scale, y * scale, scale));
+			}
+			
+			if(map.charAt(i) == '?') {
+				powerup.add(new Powerup(x * scale, y * scale, scale));
 			}
 
 			if (map.charAt(i) == ' ') {
@@ -61,6 +70,7 @@ public class Map {
 	public void reset(String map, int scale) {
 		ghosts.clear();
 		food.clear();
+		powerup.clear();
 		
 		
 		this.scale = scale;
@@ -69,6 +79,10 @@ public class Map {
 			if(map.charAt(i) == 'x') {
 				ghosts.add(new Ghost(x * scale, y * scale, scale));
 				food.add(new Food(x * scale, y * scale, scale));
+			}
+			
+			if(map.charAt(i) == '?') {
+				powerup.add(new Powerup(x * scale, y* scale, scale));
 			}
 			
 			if(map.charAt(i) == ' ') {

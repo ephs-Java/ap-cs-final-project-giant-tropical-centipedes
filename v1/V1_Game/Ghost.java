@@ -26,6 +26,7 @@ public class Ghost {
 
 
 	int counter = speed;
+	
 	public void move() {
 		if(counter == 0) {
 			if(path.length() != 0) {
