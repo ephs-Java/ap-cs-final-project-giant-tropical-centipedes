@@ -1,5 +1,7 @@
 package V1_Mapping;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,6 +18,31 @@ public class Map {
 	
 	
 	public Map(String map, int scale) {
+		makeMap(map, scale);
+		
+	}
+	
+	public Map(File file, int scale) {
+		Scanner s;
+		try {
+			s = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			s = null;
+			e.printStackTrace();
+		}
+		
+		String map = "";
+		
+		while(s.hasNext()) {
+			map += s.next();
+			map += "-";
+		}
+		
+		makeMap(map, scale);
+	}
+	
+	public void makeMap(String map, int scale) {
 		int mx = 0, my = 0;
 		
 		start = new Vector();
@@ -45,6 +72,5 @@ public class Map {
 		
 		width = (mx - 1) * scale;
 		height = my * scale + 23;
-		
 	}
 }

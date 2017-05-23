@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -91,7 +92,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			  + "*  x          ?   *-" 
 			  + "*******************-";
 
-	Map map = new Map(m2, 25);
+	Map map = new Map(new File("map.txt"), 25);
 
 	boolean admin = false;
 

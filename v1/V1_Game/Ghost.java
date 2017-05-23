@@ -2,6 +2,11 @@ package V1_Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Ghost {
 	Vector pos = new Vector();
@@ -12,11 +17,20 @@ public class Ghost {
 
 	String path = "rdddddddlluuuuuuur";
 	String startPath = path;
+	
+	BufferedImage image;
 
 	public Ghost(int x, int y, int scale) {
 		pos = new Vector(x, y);
 
 		size = scale;
+		
+		try {
+			image = ImageIO.read(new File("RedGhost.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void setPath(String s) {
@@ -61,9 +75,6 @@ public class Ghost {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect((int)pos.x, (int)pos.y, size, size);
-		g.setColor(Color.black);
-		g.drawRect((int)pos.x, (int)pos.y, size, size);
+		g.drawImage(image, pos.x(), pos.y(), null);
 	}
 }

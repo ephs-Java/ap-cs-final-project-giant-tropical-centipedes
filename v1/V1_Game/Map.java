@@ -1,5 +1,7 @@
 package V1_Game;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,6 +25,11 @@ public class Map {
 	public ArrayList<Powerup> powerup = new ArrayList<Powerup>();
 
 	public Map(String map, int scale) {
+		makeMap(map, scale);
+
+	}
+
+	public void makeMap(String map, int scale) {
 		int mx = 0, my = 0;
 
 		start = new Vector();
@@ -65,6 +72,36 @@ public class Map {
 		width = mx * scale;
 		height = my * scale + 23;
 
+	}
+	
+	public Map(File file, int scale2) {
+		Scanner s;
+		try {
+			s = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			s = null;
+			e.printStackTrace();
+		}
+		
+		String map = "";
+		
+		while(s.hasNextLine()) {
+			String next = s.nextLine();
+			map += next;
+			map += "-";
+		}
+		
+		for(int i = 0; i < map.length(); i++) {
+			if(map.charAt(i) == '-') {
+				System.out.println();
+			}
+			else {
+				System.out.print(map.charAt(i));
+			}
+		}
+		
+		makeMap(map, scale);
 	}
 
 	public void reset(String map, int scale) {
