@@ -20,13 +20,13 @@ public class Ghost {
 	
 	BufferedImage image;
 
-	public Ghost(int x, int y, int scale) {
+	public Ghost(int x, int y, int scale, String name) {
 		pos = new Vector(x, y);
 
 		size = scale;
 		
 		try {
-			image = ImageIO.read(new File("RedGhost.png"));
+			image = ImageIO.read(new File(name));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -36,6 +36,9 @@ public class Map {
 		this.scale = scale;
 		int x = 0;
 		int y = 0;
+		
+		int counter = 0;
+		
 		for (int i = 0; i < map.length(); i++) {
 			if (map.charAt(i) == '*') {
 				walls.add(new Wall(x * scale, y * scale, scale));
@@ -46,7 +49,28 @@ public class Map {
 			}
 
 			if (map.charAt(i) == 'x') {
-				ghosts.add(new Ghost(x * scale, y * scale, scale));
+				String name;
+				
+				counter++;
+				switch (counter) {
+				case 1:
+					name = "RedGhost.png";
+					break;
+				case 2:
+					name = "BlueGhost.png";
+					break;
+				case 3:
+					name = "GreenGhost.png";
+					break;
+				case 4:
+					name = "OrangeGhost.png";
+					break;
+				default:
+					name = "RedGhost.png";
+					break;
+				}
+				
+				ghosts.add(new Ghost(x * scale, y * scale, scale, name));
 				food.add(new Food(x * scale, y * scale, scale));
 			}
 			
@@ -112,9 +136,32 @@ public class Map {
 		
 		this.scale = scale;
 		int x = 0; int y = 0;
+		
+		int counter = 0;
 		for(int i = 0; i < map.length(); i++) {
 			if(map.charAt(i) == 'x') {
-				ghosts.add(new Ghost(x * scale, y * scale, scale));
+				String name;
+				
+				counter++;
+				switch (counter) {
+				case 1:
+					name = "RedGhost.png";
+					break;
+				case 2:
+					name = "BlueGhost.png";
+					break;
+				case 3:
+					name = "GreenGhost.png";
+					break;
+				case 4:
+					name = "OrangeGhost.png";
+					break;
+				default:
+					name = "RedGhost.png";
+					break;
+				}
+				
+				ghosts.add(new Ghost(x * scale, y * scale, scale, name));
 				food.add(new Food(x * scale, y * scale, scale));
 			}
 			
