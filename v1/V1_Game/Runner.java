@@ -92,7 +92,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			  + "*  x          ?   *-" 
 			  + "*******************-";
 
-	Map map = new Map(new File("map.txt"), 25);
+	Map map = new Map(m2, 25);
 
 	boolean admin = false;
 
