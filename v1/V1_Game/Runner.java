@@ -6,9 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Nidhi.Powerup;
@@ -17,82 +20,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 
 	int w = 500, h = 500;
 
-	String m = "*************************************************-"
-			+ "*x                      *                      x*-"
-			+ "* ******** **** ******* * ******* **** ******** *-"
-			+ "* *++++++* *++* *+++++* * *+++++* *++* *++++++* *-"
-			+ "* *++++++* *++* *+++++* * *+++++* *++* *++++++* *-"
-			+ "* ******** **** ******* * ******* **** ******** *-"
-			+ "*                                               *-"
-			+ "* ******** **** *** ********* *** **** ******** *-"
-			+ "*                *             *                *-"
-			+ "* ******** **** *** ********* *** **** ******** *-"
-			+ "*                                               *-"
-			+ "*   ****        ***     *     ***        ****   *-"
-			+ "*                       *                       *-"
-			+ "*************** ******* * ******* ***************-"
-			+ "*x                                             x*-"
-			+ "*         ***** *******+*+******* *****         *-"
-			+ "* *******     * *+++++++++++++++* *     ******* *-"
-			+ "*    *        * *+++++++0+++++++* *        *    *-"
-			+ "* *******     * *+++++++++++++++* *     ******* *-"
-			+ "*         ***** ******+++++****** *****         *-"
-			+ "*                   *+++++++*                   *-"
-			+ "*************** *** *+++++++* *** ***************-"
-			+ "*                   *+++++++*                   *-"
-			+ "* * *******         *********         ******* * *-"
-			+ "* *    *       ****           ****       *    * *-"
-			+ "* *    *   *****++*           *++*****   *    * *-"
-			+ "* *    *       *++* ********* *++*       *    * *-"
-			+ "*              ****           ****              *-"
-			+ "*                                               *-"
-			+ "*************** ******* * ******* ***************-"
-			+ "*                       *                       *-"
-			+ "*   ****        ***     *     ***        ****   *-"
-			+ "*                                               *-"
-			+ "* ******** *  * ***  *******  *** *  * ******** *-"
-			+ "*          *  * *+*           *+* *  *          *-"
-			+ "* ******** *  * *+*  *******  *+* *  * ******** *-"
-			+ "* *      *      *+*           *+*      *      * *-"
-			+ "* * **** ********+*           *+******** **** * *-"
-			+ "* *      *      *+*           *+*      *      * *-"
-			+ "* *  **  *  **  *+*  *******  *+*  **  *  **  * *-"
-			+ "*               *+*           *+*               *-"
-			+ "* ********      ***   *****   ***      ******** *-"
-			+ "*                                               *-"
-			+ "* ******** **** *** ********* *** **** ******** *-"
-			+ "*                                               *-"
-			+ "* ******** **** *** ********* *** **** ******** *-"
-			+ "* *++++++* *++* *+* *+++++++*	*+* *++* *++++++* *-"
-			+ "* ******** **** *** *********	***	**** ******** *-"
-			+ "*                                               *-"
-			+ "*************************************************-";
-
-	String m2 = "+++++++++++++++++++-" 
-			  + "+++++++++++++++++++-" 
-			  + "*******************-" 
-			  + "*x ?     *    x   *-"
-			  + "* ** *** * *** ** *-" 
-			  + "* ** *** * *** ** *-" 
-			  + "*                ?*-" 
-			  + "* ** * ***** * ** *-"
-			  + "*    *   *   *    *-" 
-			  + "**** *** * *** ****-" 
-			  + "**** *+++++++* ****-" 
-			  + "**** *+**+**+* ****-"
-			  + "     ++*+0+*++     -" 
-			  + "**** *+**+**+* ****-" 
-			  + "****?*+++++++* ****-" 
-			  + "**** *** * *** ****-"
-			  + "*    *   *   *    *-" 
-			  + "* ** * ***** * ** *-" 
-			  + "*                x*-" 
-			  + "* ** *** * *** ** *-"
-			  + "* ** *** * *** ** *-" 
-			  + "*  x          ?   *-" 
-			  + "*******************-";
-
-	Map map = new Map(m2, 25);
+	Map map = new Map(new File("map.txt"), 25);
 
 	boolean admin = false;
 
@@ -100,6 +28,8 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 
 	String password = "goof";
 	String entered = "";
+	
+	BufferedImage heart;
 
 	public Runner(String s) {
 		JFrame frame = new JFrame();
@@ -151,6 +81,11 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 
 	int startFood;
 	
+	CostMap cm = new CostMap(map);
+	
+	int secondaryCounter = 30;
+	int subCounter = secondaryCounter;
+	
 	public void iterate() {
 		if (counter == 0) {
 			if (!c.dead) {
@@ -159,7 +94,12 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 
 			if (!c.dead) {
 				for (Ghost g : map.ghosts) {
+					//cm.makeMap(new Vector(c.x, c.y));
 					g.move();
+				}
+				
+				for(FollowingGhost fg : map.followers) {
+					fg.move(cm);
 				}
 			}
 			
@@ -168,7 +108,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			}
 
 			if (killable) {
-				c.death(map.ghosts);
+				c.death(map.ghosts, map.followers);
 			}
 
 			c.eat(map.food);
@@ -177,8 +117,19 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			c.boundary(map.width, map.height);
 
 			counter = frameRate;
+			
+			
 		} else {
 			counter--;
+		}
+		
+		if(subCounter == 0) {
+			cm.makeMap(new Vector(c.x, c.y));
+			
+			subCounter = secondaryCounter;
+		}
+		else {
+			subCounter--;
 		}
 	}
 
@@ -189,9 +140,20 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 		if (start) {
 			ghost2();
 			
+			cm.makeMap(new Vector(c.x, c.y));
+			
+			
 			startFood = map.food.size();
 			start = false;
+			
+			try {
+				heart = ImageIO.read(new File("Heart.png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 
 		c.draw(g);
 
@@ -210,9 +172,18 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 		for (Ghost ghost : map.ghosts) {
 			ghost.draw(g);
 		}
+		
+		for (FollowingGhost fg : map.followers) {
+			fg.draw(g);
+		}
 
 		g.drawString("Score: " + c.food, 25, 30);
-		g.drawString("Lives: " + c.lives, map.width - 25 - 50, 30);
+		
+		
+		for(int i = 1; i <= c.lives; i++) {
+			g.drawImage(heart, map.width - 30 * i, 15, null);
+		}
+		
 		if (!c.dead) {
 			if (!admin) {
 				
@@ -225,6 +196,9 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			g.setColor(Color.black);
 			g.drawString("Press \"R\" to restart", map.width/2- 60, 30);
 		}
+		
+		g.setColor(Color.blue);
+		//cm.draw(g);
 
 		iterate();
 	}
@@ -252,7 +226,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 		case KeyEvent.VK_R:
 			if (c.dead) {
 				c.reset();
-				map.reset(m2, map.scale);
+				map.reset(map.scale);
 				ghost2();
 			}
 			break;

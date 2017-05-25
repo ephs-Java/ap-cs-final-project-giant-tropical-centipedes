@@ -20,6 +20,8 @@ public class Ghost {
 	
 	BufferedImage image;
 
+	int[][] costMap;
+	
 	public Ghost(int x, int y, int scale, String name) {
 		pos = new Vector(x, y);
 
@@ -31,6 +33,14 @@ public class Ghost {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void initCostMap(int w, int h, int scale) {
+		costMap = new int[h/scale][w/scale]; //int[col][row]
+	}
+	
+	public void updateCostMap(Vector target) {
+		
 	}
 	
 	public void setPath(String s) {

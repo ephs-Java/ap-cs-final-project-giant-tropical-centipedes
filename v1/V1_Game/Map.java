@@ -19,16 +19,20 @@ public class Map {
 	public ArrayList<Wall> walls = new ArrayList<Wall>();
 
 	public ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
+	
+	ArrayList<FollowingGhost> followers = new ArrayList<FollowingGhost>();
 
 	public ArrayList<Food> food = new ArrayList<Food>();
 	
 	public ArrayList<Powerup> powerup = new ArrayList<Powerup>();
+	
+	String map = "";
 
 	public Map(String map, int scale) {
 		makeMap(map, scale);
 
 	}
-
+	
 	public void makeMap(String map, int scale) {
 		int mx = 0, my = 0;
 
@@ -42,13 +46,15 @@ public class Map {
 		for (int i = 0; i < map.length(); i++) {
 			if (map.charAt(i) == '*') {
 				walls.add(new Wall(x * scale, y * scale, scale));
+				this.map += '*';
 			}
 
-			if (map.charAt(i) == '0') {
+			else if (map.charAt(i) == '0') {
 				start = new Vector(x * scale, y * scale);
+				this.map += '0';
 			}
 
-			if (map.charAt(i) == 'x') {
+			else if (map.charAt(i) == 'x') {
 				String name;
 				
 				counter++;
@@ -72,14 +78,28 @@ public class Map {
 				
 				ghosts.add(new Ghost(x * scale, y * scale, scale, name));
 				food.add(new Food(x * scale, y * scale, scale));
+				
+				this.map += "x";
 			}
 			
-			if(map.charAt(i) == '?') {
+			else if(map.charAt(i) == '?') {
 				powerup.add(new Powerup(x * scale, y * scale, scale));
+				
+				this.map += "?";
 			}
 
-			if (map.charAt(i) == ' ') {
+			else if (map.charAt(i) == ' ') {
 				food.add(new Food(x * scale, y * scale, scale));
+				this.map += " ";
+			}
+			else if(map.charAt(i) == '-'){
+				this.map += "\n";
+			}
+			else if(map.charAt(i) == '=') {
+				followers.add(new FollowingGhost(x * scale, y * scale, scale, "RedGhost.png"));
+			}
+			else {
+				this.map += "+";
 			}
 
 			if (map.charAt(i) == '-') {
@@ -98,7 +118,7 @@ public class Map {
 
 	}
 	
-	public Map(File file, int scale2) {
+	public Map(File file, int scale) {
 		Scanner s;
 		try {
 			s = new Scanner(file);
@@ -113,7 +133,7 @@ public class Map {
 		while(s.hasNextLine()) {
 			String next = s.nextLine();
 			map += next;
-			map += "-";
+			map  += "-";
 		}
 		
 		for(int i = 0; i < map.length(); i++) {
@@ -128,17 +148,18 @@ public class Map {
 		makeMap(map, scale);
 	}
 
-	public void reset(String map, int scale) {
+	public void reset(int scale) {
 		ghosts.clear();
 		food.clear();
 		powerup.clear();
+		followers.clear();
 		
 		
 		this.scale = scale;
 		int x = 0; int y = 0;
 		
 		int counter = 0;
-		for(int i = 0; i < map.length(); i++) {
+		for(int i = 0; i < this.map.length(); i++) {
 			if(map.charAt(i) == 'x') {
 				String name;
 				
@@ -165,12 +186,15 @@ public class Map {
 				food.add(new Food(x * scale, y * scale, scale));
 			}
 			
-			if(map.charAt(i) == '?') {
+			else if(map.charAt(i) == '?') {
 				powerup.add(new Powerup(x * scale, y* scale, scale));
 			}
 			
-			if(map.charAt(i) == ' ') {
+			else if(map.charAt(i) == ' ') {
 				food.add(new Food(x * scale, y * scale, scale));
+			}
+			else if(map.charAt(i) == '=') {
+				followers.add(new FollowingGhost(x * scale, y * scale, scale, "RedGhost.png"));
 			}
 			
 			if(map.charAt(i) == '-') {
@@ -181,5 +205,9 @@ public class Map {
 				x++;
 			}
 		}
+	}
+	
+	public void log() {
+		System.out.println(map);
 	}
 }

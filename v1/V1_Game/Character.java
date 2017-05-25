@@ -181,8 +181,20 @@ public class Character {
 		dead = false;
 	}
 
-	public void death(ArrayList<Ghost> g) {
+	public void death(ArrayList<Ghost> g, ArrayList<FollowingGhost> fg) {
 		for (Ghost gs : g) {
+			if (gs.pos.x == x && gs.pos.y == y) {
+				lives -= 1;
+				x = (int) start.x;
+				y = (int) start.y;
+
+				if (lives == 0) {
+					dead = true;
+				}
+			}
+		}
+		
+		for (FollowingGhost gs : fg) {
 			if (gs.pos.x == x && gs.pos.y == y) {
 				lives -= 1;
 				x = (int) start.x;
