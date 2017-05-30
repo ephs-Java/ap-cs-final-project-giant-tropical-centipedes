@@ -160,13 +160,17 @@ public class Character {
 		}	
 	}
 	
-	public void eatCherry(ArrayList<Powerup> powerup, ArrayList<Ghost> ghosts) {
+	public void eatCherry(ArrayList<Powerup> powerup, ArrayList<Ghost> ghosts, ArrayList<FollowingGhost> fgs) {
 		for(int i = powerup.size() - 1; i >= 0; i--) {
 			if((powerup.get(i).pos.x == x) && (powerup.get(i).pos.y == y)) {
 				this.powerup++;
 				powerup.remove(i);
 				
 				for(Ghost ghost: ghosts) {
+					ghost.counter = 100;
+				}
+				
+				for(FollowingGhost ghost : fgs) {
 					ghost.counter = 100;
 				}
 			}
@@ -191,6 +195,10 @@ public class Character {
 				if (lives == 0) {
 					dead = true;
 				}
+				
+				for(FollowingGhost fgs : fg) {
+					fgs.pos = new Vector(fgs.start.x, fgs.start.y);
+				}
 			}
 		}
 		
@@ -199,6 +207,8 @@ public class Character {
 				lives -= 1;
 				x = (int) start.x;
 				y = (int) start.y;
+				
+				gs.pos = new Vector(gs.start.x, gs.start.y);
 
 				if (lives == 0) {
 					dead = true;

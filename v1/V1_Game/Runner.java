@@ -112,7 +112,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			}
 
 			c.eat(map.food);
-			c.eatCherry(map.powerup, map.ghosts);
+			c.eatCherry(map.powerup, map.ghosts, map.followers);
 
 			c.boundary(map.width, map.height);
 

@@ -7,14 +7,23 @@ import java.io.File;
 
 public class FollowingGhost extends Ghost{
 	
+	boolean run = false;
+	
+	Vector start;
+	
 	public FollowingGhost(int x, int y, int scale, String name) {
 		super(x, y, scale, name);
 		speed = 5;
+		
+		start = new Vector(x, y);
 	}
 	
+	int duration = 100/5;
+	int runCounter = 0;
 	public void move(CostMap cm) {
+		
 		if(counter == 0) {
-			switch(cm.bestDir(pos)) {
+			switch(cm.bestDir(pos, run)) {
 			case "up":
 				pos.y -= size;
 				break;
@@ -27,6 +36,13 @@ public class FollowingGhost extends Ghost{
 			case "right":
 				pos.x += size;
 				break;
+			}
+			
+			if(runCounter == 0) {
+				run = false;
+			}
+			else {
+				runCounter--;
 			}
 			
 			counter = speed;

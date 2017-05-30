@@ -97,35 +97,62 @@ public class CostMap {
 	 * }
 	 */
 
-	public String bestDir(Vector pos) {
+	public String bestDir(Vector pos, boolean run) {
 		int up = pos.y() / m.scale - 1 < 0 ? 0 : map[pos.y() / m.scale - 1][pos.x() / m.scale];
 		int down = pos.y() / m.scale + 1 > m.height - m.scale ? 0 : map[pos.y() / m.scale + 1][pos.x() / m.scale];
 		int left = pos.x() / m.scale - 1 < 0 ? 0 : map[pos.y() / m.scale][pos.x() / m.scale - 1];
 		int right = pos.x() / m.scale + 1 > m.width - m.scale ? 0 : map[pos.y() / m.scale][pos.x() / m.scale + 1];
+		
+		if (!run) {
+			String smallest = "none";
+			int small = Integer.MAX_VALUE;
 
-		String smallest = "none";
-		int small = Integer.MAX_VALUE;
+			if (up > 0 && up < small) {
+				smallest = "up";
+				small = up;
+			}
 
-		if (up > 0 && up < small) {
-			smallest = "up";
-			small = up;
+			if (down > 0 && down < small) {
+				smallest = "down";
+				small = down;
+			}
+
+			if (left > 0 && left < small) {
+				smallest = "left";
+				small = left;
+			}
+
+			if (right > 0 && right < small) {
+				smallest = "right";
+			}
+
+			return smallest;
+		}
+		
+		String largest = "none";
+		int large = 0;
+
+		if (up > 0 && up > large) {
+			largest = "up";
+			large = up;
 		}
 
-		if (down > 0 && down < small) {
-			smallest = "down";
-			small = down;
+		if (down > 0 && down > large) {
+			largest = "down";
+			large = down;
 		}
 
-		if (left > 0 && left < small) {
-			smallest = "left";
-			small = left;
+		if (left > 0 && left > large) {
+			largest = "left";
+			large = left;
 		}
 
-		if (right > 0 && right < small) {
-			smallest = "right";
+		if (right > 0 && right > large) {
+			largest = "right";
 		}
 
-		return smallest;
+		return largest;
+		
 	}
 
 	public void draw(Graphics g) {
