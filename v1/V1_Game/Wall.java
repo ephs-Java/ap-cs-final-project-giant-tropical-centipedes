@@ -31,6 +31,6 @@ public class Wall implements Collider{
 		g.setColor(Color.black);
 		g.drawRect(x, y, size, size);
 		g.setColor(Color.blue);
-		//g.fillRect(x, y, size, size);
+		g.fillRect(x, y, size, size);
 	}
 }

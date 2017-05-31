@@ -76,7 +76,7 @@ public class Map {
 					break;
 				}
 				
-				ghosts.add(new Ghost(x * scale, y * scale, scale, name));
+				//ghosts.add(new Ghost(x * scale, y * scale, scale, name));
 				food.add(new Food(x * scale, y * scale, scale));
 				
 				this.map += "x";
