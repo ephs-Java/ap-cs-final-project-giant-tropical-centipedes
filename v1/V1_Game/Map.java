@@ -81,7 +81,7 @@ public class Map {
 					break;
 				}
 				
-				ghosts.add(new Ghost(x * scale, y * scale, scale, name));
+				//ghosts.add(new Ghost(x * scale, y * scale, scale, name));
 				food.add(new Food(x * scale, y * scale, scale));
 				
 				this.map += "x";
@@ -136,7 +136,7 @@ public class Map {
 			e.printStackTrace();
 		}
 		
-		String map = "";
+		map = "";
 		
 		while(s.hasNextLine()) {
 			String next = s.nextLine();
@@ -167,7 +167,7 @@ public class Map {
 		int x = 0; int y = 0;
 		
 		int counter = 0;
-		for(int i = 0; i < this.map.length(); i++) {
+		for(int i = 0; i < map.length(); i++) {
 			if(map.charAt(i) == 'x') {
 				String name;
 				
@@ -190,7 +190,7 @@ public class Map {
 					break;
 				}
 				
-				ghosts.add(new Ghost(x * scale, y * scale, scale, name));
+				//ghosts.add(new Ghost(x * scale, y * scale, scale, name));
 				food.add(new Food(x * scale, y * scale, scale));
 			}
 			
@@ -203,6 +203,7 @@ public class Map {
 			}
 			else if(map.charAt(i) == '=') {
 				followers.add(new FollowingGhost(x * scale, y * scale, scale, "RedGhost.png"));
+				System.out.println(x * scale + ", " + y * scale);
 			}
 			
 			if(map.charAt(i) == '-') {

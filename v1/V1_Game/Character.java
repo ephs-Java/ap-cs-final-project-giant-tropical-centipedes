@@ -19,7 +19,7 @@ public class Character {
 
 	private int size;
 
-	int speed = 1;
+	int speed = 2;
 
 	boolean up = false, down = false, left = false, right = false;
 

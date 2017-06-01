@@ -36,12 +36,12 @@ public class Player {
 				break;
 		}
 		
-		for(Wall w : walls) {
+		/*for(Wall w : walls) {
 			if(w.collide(this)) {
 				x = px;
 				y = py;
 			}
-		}
+		}*/
 	}
 	
 	public void draw(Graphics g) {

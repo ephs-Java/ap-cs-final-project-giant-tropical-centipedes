@@ -92,12 +92,11 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 
 			if (!c.dead) {
 				for (Ghost g : map.ghosts) {
-					//cm.makeMap(new Vector(c.x, c.y));
 					g.move();
 				}
 				
 				for(FollowingGhost fg : map.followers) {
-					fg.move(cm);
+					fg.move(new Vector(c.x, c.y), map.walls);
 				}
 			}
 			
@@ -136,9 +135,13 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		if (start) {
-			ghost2();
+			//ghost2();
 			
 			cm.makeMap(new Vector(c.x, c.y));
+			
+			for(FollowingGhost fg : map.followers) {
+				fg.setSize(map.width, map.height);
+			}
 			
 			
 			startFood = map.food.size();
@@ -225,7 +228,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			if (c.dead) {
 				c.reset();
 				map.reset(map.scale);
-				ghost2();
+				//ghost2();
 			}
 			break;
 		case KeyEvent.VK_DELETE:
@@ -239,6 +242,11 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			break;
 		case KeyEvent.VK_C:
 			entered = "";
+			break;
+		case KeyEvent.VK_T:
+			for(FollowingGhost fgs : map.followers) {
+				System.out.println(fgs.pos.x + ", " + fgs.pos.y);
+			}
 			break;
 		}
 

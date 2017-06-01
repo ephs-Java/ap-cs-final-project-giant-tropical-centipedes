@@ -119,6 +119,10 @@ public class Vector {
 		mult(num);
 	}
 	
+	public boolean equals(Vector v) {
+		return (v.x == x && v.y == y);
+	}
+	
 	public static void main(String[] args) {
 		Vector v = new Vector(4, 3);
 		double mag1 = v.mag();
