@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Nidhi.Powerup;
-
 
 public class Map {
 
@@ -16,6 +14,8 @@ public class Map {
 
 	int width, height;
 
+	//create an arraylist of walls, ghosts, followingghosts, food, and powerups
+	
 	public ArrayList<Wall> walls = new ArrayList<Wall>();
 
 	public ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
@@ -26,8 +26,10 @@ public class Map {
 	
 	public ArrayList<Powerup> powerup = new ArrayList<Powerup>();
 	
+	//start with an empty map
 	String map = "";
 
+	// map constructor
 	public Map(String map, int scale) {
 		makeMap(map, scale);
 
@@ -45,15 +47,18 @@ public class Map {
 		
 		for (int i = 0; i < map.length(); i++) {
 			if (map.charAt(i) == '*') {
+				//add a wall wherever there is * 
 				walls.add(new Wall(x * scale, y * scale, scale));
 				this.map += '*';
 			}
-
+			
+			//character starts where there is 0
 			else if (map.charAt(i) == '0') {
 				start = new Vector(x * scale, y * scale);
 				this.map += '0';
 			}
-
+			
+			//add ghost wherever there is x
 			else if (map.charAt(i) == 'x') {
 				String name;
 				
@@ -82,16 +87,19 @@ public class Map {
 				this.map += "x";
 			}
 			
+			//add a cherry powerup wherever there is ?
 			else if(map.charAt(i) == '?') {
 				powerup.add(new Powerup(x * scale, y * scale, scale));
 				
 				this.map += "?";
 			}
 
+			//add food wherever there is a blank space
 			else if (map.charAt(i) == ' ') {
 				food.add(new Food(x * scale, y * scale, scale));
 				this.map += " ";
 			}
+			//when you reach a - start continue constructing the map on the next line
 			else if(map.charAt(i) == '-'){
 				this.map += "\n";
 			}

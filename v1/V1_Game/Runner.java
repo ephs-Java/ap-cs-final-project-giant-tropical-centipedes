@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import Nidhi.Powerup;
-
 public class Runner extends JPanel implements ActionListener, KeyListener {
 
 	int w = 500, h = 500;

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import Nidhi.Powerup;
-
 public class Character {
 
 	public int x; // x position
@@ -35,6 +33,7 @@ public class Character {
 	
 	BufferedImage u, d, l, r;
 
+	//constructor for character
 	public Character(int x, int y, int size) {
 		this.x = x;
 		this.y = y;
@@ -42,6 +41,7 @@ public class Character {
 
 		start = new Vector(x, y);
 		
+		//set images for pacman in up, down, left, and right directions
 		try {
 			example = ImageIO.read(new File("PacMan.png"));
 			u = ImageIO.read(new File("PacManUp.png"));
@@ -115,18 +115,31 @@ public class Character {
 		//g.drawOval(x, y, size, size);
 	}
 
+	//set keys pressed and released with directions
 	public void press(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_D:
 			right = true;
 			break;
+		case KeyEvent.VK_RIGHT:
+			right = true;
+			break;
 		case KeyEvent.VK_A:
+			left = true;
+			break;
+		case KeyEvent.VK_LEFT:
 			left = true;
 			break;
 		case KeyEvent.VK_S:
 			down = true;
 			break;
+		case KeyEvent.VK_DOWN:
+			down = true;
+			break;
 		case KeyEvent.VK_W:
+			up = true;
+			break;
+		case KeyEvent.VK_UP:
 			up = true;
 			break;
 		}
@@ -138,19 +151,32 @@ public class Character {
 		case KeyEvent.VK_D:
 			right = false;
 			break;
+		case KeyEvent.VK_RIGHT:
+			right = false;
+			break;
 		case KeyEvent.VK_A:
+			left = false;
+			break;
+		case KeyEvent.VK_LEFT:
 			left = false;
 			break;
 		case KeyEvent.VK_S:
 			down = false;
 			break;
+		case KeyEvent.VK_DOWN:
+			down = false;
+			break;	
 		case KeyEvent.VK_W:
+			up = false;
+			break;
+		case KeyEvent.VK_UP:
 			up = false;
 			break;
 		}
 
 	}
 	
+	//character eats food
 	public void eat(ArrayList<Food> food) {
 		for(int i = food.size() - 1; i >= 0; i--) {
 			if(food.get(i).pos.x == x && food.get(i).pos.y == y) {
@@ -160,6 +186,7 @@ public class Character {
 		}	
 	}
 	
+	//character eats cherry and ghosts stop
 	public void eatCherry(ArrayList<Powerup> powerup, ArrayList<Ghost> ghosts, ArrayList<FollowingGhost> fgs) {
 		for(int i = powerup.size() - 1; i >= 0; i--) {
 			if((powerup.get(i).pos.x == x) && (powerup.get(i).pos.y == y)) {
@@ -185,10 +212,11 @@ public class Character {
 		dead = false;
 	}
 
+	//when ghost eats pacman, subtract one life and return to starting position
 	public void death(ArrayList<Ghost> g, ArrayList<FollowingGhost> fg) {
 		for (Ghost gs : g) {
 			if (gs.pos.x == x && gs.pos.y == y) {
-				lives -= 1;
+				lives --;
 				x = (int) start.x;
 				y = (int) start.y;
 
@@ -204,7 +232,7 @@ public class Character {
 		
 		for (FollowingGhost gs : fg) {
 			if (gs.pos.x == x && gs.pos.y == y) {
-				lives -= 1;
+				lives --;
 				x = (int) start.x;
 				y = (int) start.y;
 				

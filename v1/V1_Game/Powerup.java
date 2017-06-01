@@ -1,4 +1,4 @@
-package Nidhi;
+package V1_Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,14 +8,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import V1_Game.Vector;
-
 public class Powerup {
 	BufferedImage cherry;
 	public Vector pos = new Vector();
 	int size;
 	int scale;
 	
+	//constructor for cherry
 	public Powerup(int x, int y, int scale) {
 		pos = new Vector(x,y);
 		size = scale/2;
@@ -28,6 +27,7 @@ public class Powerup {
 		}
 	}
 	
+	//draw cherries method
 	public void draw(Graphics g) {
 		g.drawImage(cherry, pos.x(),pos.y(), null);	
 	}
