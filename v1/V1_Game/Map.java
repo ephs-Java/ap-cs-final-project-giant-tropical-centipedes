@@ -14,7 +14,7 @@ public class Map {
 
 	int width, height;
 
-	//create an arraylist of walls, ghosts, followingghosts, food, and powerups
+	//create an arraylist of walls, ghosts, following ghosts, food, and powerups
 	
 	public ArrayList<Wall> walls = new ArrayList<Wall>();
 

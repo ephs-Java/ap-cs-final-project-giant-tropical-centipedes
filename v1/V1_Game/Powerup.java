@@ -14,7 +14,7 @@ public class Powerup {
 	int size;
 	int scale;
 	
-	//constructor for cherry
+	//constructor for cherry powerup
 	public Powerup(int x, int y, int scale) {
 		pos = new Vector(x,y);
 		size = scale/2;
@@ -27,7 +27,7 @@ public class Powerup {
 		}
 	}
 	
-	//draw cherries method
+	//draw powerups method
 	public void draw(Graphics g) {
 		g.drawImage(cherry, pos.x(),pos.y(), null);	
 	}

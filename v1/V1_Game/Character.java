@@ -212,7 +212,7 @@ public class Character {
 		dead = false;
 	}
 
-	//when ghost eats pacman, subtract one life and return to starting position
+	//when a ghost eats pacman, subtract one life and return to original starting position
 	public void death(ArrayList<Ghost> g, ArrayList<FollowingGhost> fg) {
 		for (Ghost gs : g) {
 			if (gs.pos.x == x && gs.pos.y == y) {
