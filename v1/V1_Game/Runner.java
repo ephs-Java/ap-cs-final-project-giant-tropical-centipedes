@@ -230,7 +230,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			if (c.dead) {
 				c.reset();
 				map.reset(map.scale);
-				ghost2();
+				//ghost2();
 			}
 			break;
 		case KeyEvent.VK_DELETE:
@@ -244,6 +244,11 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			break;
 		case KeyEvent.VK_C:
 			entered = "";
+			break;
+		case KeyEvent.VK_T:
+			for(FollowingGhost fgs : map.followers) {
+				System.out.println(fgs.pos.x + ", " + fgs.pos.y);
+			}
 			break;
 		}
 
