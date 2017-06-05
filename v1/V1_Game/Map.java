@@ -26,6 +26,13 @@ public class Map {
 	
 	public ArrayList<Powerup> powerup = new ArrayList<Powerup>();
 	
+	public ArrayList<Pinky> pinky = new ArrayList<Pinky>();
+	
+	public ArrayList<Inky> inky = new ArrayList<Inky>();
+	
+	public ArrayList<Clyde> clyde = new ArrayList<Clyde>();
+	
+	
 	//start with an empty map
 	String map = "";
 
@@ -106,6 +113,15 @@ public class Map {
 			else if(map.charAt(i) == '=') {
 				followers.add(new FollowingGhost(x * scale, y * scale, scale, "RedGhost.png"));
 			}
+			else if(map.charAt(i) == '@') {
+				pinky.add(new Pinky(x * scale, y * scale, scale, "GreenGhost.png"));
+			}
+			else if(map.charAt(i) == 'e') {
+				clyde.add(new Clyde(x * scale, y * scale, scale, "OrangeGhost.png"));
+			}
+			else if(map.charAt(i) == '&') {
+				inky.add(new Inky(x * scale, y * scale, scale, "BlueGhost.png"));
+			}
 			else {
 				this.map += "+";
 			}
@@ -161,6 +177,9 @@ public class Map {
 		food.clear();
 		powerup.clear();
 		followers.clear();
+		pinky.clear();
+		inky.clear();
+		clyde.clear();
 		
 		
 		this.scale = scale;
@@ -204,6 +223,15 @@ public class Map {
 			else if(map.charAt(i) == '=') {
 				followers.add(new FollowingGhost(x * scale, y * scale, scale, "RedGhost.png"));
 				System.out.println(x * scale + ", " + y * scale);
+			}
+			else if(map.charAt(i) == '@') {
+				pinky.add(new Pinky(x * scale, y * scale, scale, "GreenGhost.png"));
+			}
+			else if(map.charAt(i) == 'e') {
+				clyde.add(new Clyde(x * scale, y * scale, scale, "OrangeGhost.png"));
+			}
+			else if(map.charAt(i) == '&') {
+				inky.add(new Inky(x * scale, y * scale, scale, "BlueGhost.png"));
 			}
 			
 			if(map.charAt(i) == '-') {

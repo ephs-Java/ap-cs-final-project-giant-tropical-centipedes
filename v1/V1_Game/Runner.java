@@ -98,6 +98,15 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 				for(FollowingGhost fg : map.followers) {
 					fg.move(new Vector(c.x, c.y), map.walls);
 				}
+				for(Pinky p : map.pinky) {
+					p.move(new Vector(c.x,c.y), map.walls);
+				}
+				for(Inky i : map.inky) {
+					i.move(new Vector(c.x,c.y), map.walls);
+				}
+				for(Clyde cl : map.clyde) {
+					cl.move(new Vector(c.x,c.y), map.walls);
+				}
 			}
 			
 			if(c.food == startFood) {
@@ -105,11 +114,11 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			}
 
 			if (killable) {
-				c.death(map.ghosts, map.followers);
+				c.death(map.ghosts, map.followers, map.pinky, map.inky, map.clyde);
 			}
 
 			c.eat(map.food);
-			c.eatCherry(map.powerup, map.ghosts, map.followers);
+			c.eatCherry(map.powerup, map.ghosts, map.followers, map.pinky);
 
 			c.boundary(map.width, map.height);
 
@@ -141,6 +150,15 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			
 			for(FollowingGhost fg : map.followers) {
 				fg.setSize(map.width, map.height);
+			}
+			for(Pinky p : map.pinky) {
+				p.setSize(map.width, map.height);
+			}
+			for(Inky i : map.inky) {
+				i.setSize(map.width, map.height);
+			}
+			for(Clyde cl : map.clyde) {
+				cl.setSize(map.width, map.height);
 			}
 			
 			
@@ -176,6 +194,18 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 		
 		for (FollowingGhost fg : map.followers) {
 			fg.draw(g);
+		}
+		
+		for(Pinky p : map.pinky) {
+			p.draw(g);
+		}
+		
+		for(Inky i : map.inky) {
+			i.draw(g);
+		}
+		
+		for(Clyde cl : map.clyde) {
+			cl.draw(g);
 		}
 
 		g.drawString("Score: " + c.food, 25, 30);

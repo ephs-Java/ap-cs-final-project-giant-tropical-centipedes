@@ -187,7 +187,7 @@ public class Character {
 	}
 	
 	//character eats cherry and ghosts stop
-	public void eatCherry(ArrayList<Powerup> powerup, ArrayList<Ghost> ghosts, ArrayList<FollowingGhost> fgs) {
+	public void eatCherry(ArrayList<Powerup> powerup, ArrayList<Ghost> ghosts, ArrayList<FollowingGhost> fgs, ArrayList<Pinky> pinky) {
 		for(int i = powerup.size() - 1; i >= 0; i--) {
 			if((powerup.get(i).pos.x == x) && (powerup.get(i).pos.y == y)) {
 				this.powerup++;
@@ -213,7 +213,7 @@ public class Character {
 	}
 
 	//when a ghost eats pacman, subtract one life and return to original starting position
-	public void death(ArrayList<Ghost> g, ArrayList<FollowingGhost> fg) {
+	public void death(ArrayList<Ghost> g, ArrayList<FollowingGhost> fg, ArrayList<Pinky> pinky, ArrayList<Inky> inky, ArrayList<Clyde> clyde) {
 		for (Ghost gs : g) {
 			if (gs.pos.x == x && gs.pos.y == y) {
 				lives --;
@@ -237,6 +237,47 @@ public class Character {
 				y = (int) start.y;
 				
 				gs.pos = new Vector(gs.start.x, gs.start.y);
+
+				if (lives == 0) {
+					dead = true;
+				}
+			}
+		}
+		
+		for(Pinky p : pinky) {
+			if(p.pos.x == x && p.pos.y == y) {
+				lives--;
+				x = (int) start.x;
+				y = (int) start.y;
+				
+				p.pos = new Vector(p.start.x, p.start.y);
+
+				if (lives == 0) {
+					dead = true;
+				}
+			}
+		}
+		
+		for(Inky i : inky) {
+			if(i.pos.x == x && i.pos.y == y) {
+				lives--;
+				x = (int) start.x;
+				y = (int) start.y;
+				
+				i.pos = new Vector(i.start.x, i.start.y);
+
+				if (lives == 0) {
+					dead = true;
+				}
+			}
+		}
+		for(Clyde cl : clyde) {
+			if(cl.pos.x == x && cl.pos.y == y) {
+				lives--;
+				x = (int) start.x;
+				y = (int) start.y;
+				
+				cl.pos = new Vector(cl.start.x, cl.start.y);
 
 				if (lives == 0) {
 					dead = true;
