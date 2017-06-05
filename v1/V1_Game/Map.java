@@ -173,65 +173,36 @@ public class Map {
 	}
 
 	public void reset(int scale) {
-		ghosts.clear();
 		food.clear();
 		powerup.clear();
-		followers.clear();
-		pinky.clear();
-		inky.clear();
-		clyde.clear();
 		
+		for(FollowingGhost fgs : followers) {
+			fgs.restart();
+		}
+		
+		for(Pinky p : pinky) {
+			p.restart();
+		}
+		
+		for(Inky i : inky) {
+			i.restart();
+		}
+		
+		for(Clyde c : clyde) {
+			c.restart();
+		}
 		
 		this.scale = scale;
 		int x = 0; int y = 0;
 		
 		int counter = 0;
 		for(int i = 0; i < map.length(); i++) {
-			if(map.charAt(i) == 'x') {
-				String name;
-				
-				counter++;
-				switch (counter) {
-				case 1:
-					name = "RedGhost.png";
-					break;
-				case 2:
-					name = "BlueGhost.png";
-					break;
-				case 3:
-					name = "GreenGhost.png";
-					break;
-				case 4:
-					name = "OrangeGhost.png";
-					break;
-				default:
-					name = "RedGhost.png";
-					break;
-				}
-				
-				//ghosts.add(new Ghost(x * scale, y * scale, scale, name));
+			if(map.charAt(i) == ' ' || map.charAt(i) == '@' || map.charAt(i) == '&' || map.charAt(i) == '=' || map.charAt(i) == 'e') {
 				food.add(new Food(x * scale, y * scale, scale));
 			}
 			
-			else if(map.charAt(i) == '?') {
-				powerup.add(new Powerup(x * scale, y* scale, scale));
-			}
-			
-			else if(map.charAt(i) == ' ') {
-				food.add(new Food(x * scale, y * scale, scale));
-			}
-			else if(map.charAt(i) == '=') {
-				followers.add(new FollowingGhost(x * scale, y * scale, scale, "RedGhost.png"));
-				System.out.println(x * scale + ", " + y * scale);
-			}
-			else if(map.charAt(i) == '@') {
-				pinky.add(new Pinky(x * scale, y * scale, scale, "GreenGhost.png"));
-			}
-			else if(map.charAt(i) == 'e') {
-				clyde.add(new Clyde(x * scale, y * scale, scale, "OrangeGhost.png"));
-			}
-			else if(map.charAt(i) == '&') {
-				inky.add(new Inky(x * scale, y * scale, scale, "BlueGhost.png"));
+			if(map.charAt(i) == '?') {
+				powerup.add(new Powerup(x * scale, y * scale, scale));
 			}
 			
 			if(map.charAt(i) == '-') {

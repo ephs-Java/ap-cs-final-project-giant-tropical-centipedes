@@ -6,29 +6,11 @@ public class Clyde extends FollowingGhost{
 
 	public Clyde(int x, int y, int scale, String name) {
 		super(x, y, scale, name);
-		// TODO Auto-generated constructor stub
 	}
-	
-	/*@Override
-	public void move(Vector target, ArrayList<Wall> walls,Character c) {
-		Vector newVector = new Vector(target.x, target.y);
-		
-		if(target.x - pos.x >=8) {
-			pos.x = target.x;
-			pos.y = target.y;
-		} else {
-			//pos.x = 
-		}
-		
-		
-		//super.move(newPos, walls);
-	}*/
 	
 	@Override
 	public void move(Vector target, ArrayList<Wall> walls) {
-		
-		Vector newVector = new Vector(target.x, target.y); 
-		
+				
 		Vector t = new Vector();
 		if (!scatter) {
 			t = new Vector(target.x, target.y);
@@ -36,12 +18,17 @@ public class Clyde extends FollowingGhost{
 			t = new Vector(corner.x, corner.y);
 		}
 		
-		/*if(target.x - pos.x >=8) {
-			pos.x = target.x;
-			pos.y = target.y;
+		Vector diff = new Vector(target.x, target.y);
+		
+		diff.sub(pos);
+		
+		double dist = diff.mag();
+		
+		if(dist < 8.0) {
+			super.move(start, walls);
 		} else {
-			
-		}*/
+			super.move(t, walls);
+		}
 	}
 
 }

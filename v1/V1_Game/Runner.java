@@ -26,7 +26,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 
 	String password = "goof";
 	String entered = "";
-	
+
 	BufferedImage heart;
 
 	public Runner(String s) {
@@ -78,12 +78,12 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 	}
 
 	int startFood;
-	
+
 	CostMap cm = new CostMap(map);
-	
+
 	int secondaryCounter = 30;
 	int subCounter = secondaryCounter;
-	
+
 	public void iterate() {
 		if (counter == 0) {
 			if (!c.dead) {
@@ -94,22 +94,24 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 				for (Ghost g : map.ghosts) {
 					g.move();
 				}
-				
-				for(FollowingGhost fg : map.followers) {
+
+				for (FollowingGhost fg : map.followers) {
 					fg.move(new Vector(c.x, c.y), map.walls);
 				}
-				for(Pinky p : map.pinky) {
-					p.move(new Vector(c.x,c.y), map.walls);
+				for (Pinky p : map.pinky) {
+					p.move(new Vector(c.x, c.y), map.walls, c.getDir());
 				}
-				for(Inky i : map.inky) {
-					i.move(new Vector(c.x,c.y), map.walls);
+				for (Inky i : map.inky) {
+					for (FollowingGhost b : map.followers) {
+						i.move(new Vector(c.x, c.y), b.pos, map.walls, c.getDir());
+					}
 				}
-				for(Clyde cl : map.clyde) {
-					cl.move(new Vector(c.x,c.y), map.walls);
+				for (Clyde cl : map.clyde) {
+					cl.move(new Vector(c.x, c.y), map.walls);
 				}
 			}
-			
-			if(c.food == startFood) {
+
+			if (c.food == startFood) {
 				c.dead = true;
 			}
 
@@ -118,23 +120,21 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			}
 
 			c.eat(map.food);
-			c.eatCherry(map.powerup, map.ghosts, map.followers, map.pinky);
+			c.eatCherry(map.powerup, map.ghosts, map.followers, map.pinky, map.inky, map.clyde);
 
 			c.boundary(map.width, map.height);
 
 			counter = frameRate;
-			
-			
+
 		} else {
 			counter--;
 		}
-		
-		if(subCounter == 0) {
+
+		if (subCounter == 0) {
 			cm.makeMap(new Vector(c.x, c.y));
-			
+
 			subCounter = secondaryCounter;
-		}
-		else {
+		} else {
 			subCounter--;
 		}
 	}
@@ -144,27 +144,26 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void paintComponent(Graphics g) {
 		if (start) {
-			//ghost2();
-			
+			// ghost2();
+
 			cm.makeMap(new Vector(c.x, c.y));
-			
-			for(FollowingGhost fg : map.followers) {
+
+			for (FollowingGhost fg : map.followers) {
 				fg.setSize(map.width, map.height);
 			}
-			for(Pinky p : map.pinky) {
+			for (Pinky p : map.pinky) {
 				p.setSize(map.width, map.height);
 			}
-			for(Inky i : map.inky) {
+			for (Inky i : map.inky) {
 				i.setSize(map.width, map.height);
 			}
-			for(Clyde cl : map.clyde) {
+			for (Clyde cl : map.clyde) {
 				cl.setSize(map.width, map.height);
 			}
-			
-			
+
 			startFood = map.food.size();
 			start = false;
-			
+
 			try {
 				heart = ImageIO.read(new File("Heart.png"));
 			} catch (IOException e) {
@@ -172,7 +171,6 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 				e.printStackTrace();
 			}
 		}
-		
 
 		c.draw(g);
 
@@ -183,7 +181,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 		for (Wall w : map.walls) {
 			w.draw(g);
 		}
-		
+
 		for (Powerup p : map.powerup) {
 			p.draw(g);
 		}
@@ -191,49 +189,46 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 		for (Ghost ghost : map.ghosts) {
 			ghost.draw(g);
 		}
-		
+
 		for (FollowingGhost fg : map.followers) {
 			fg.draw(g);
 		}
-		
-		for(Pinky p : map.pinky) {
+
+		for (Pinky p : map.pinky) {
 			p.draw(g);
 		}
-		
-		for(Inky i : map.inky) {
+
+		for (Inky i : map.inky) {
 			i.draw(g);
 		}
-		
-		for(Clyde cl : map.clyde) {
+
+		for (Clyde cl : map.clyde) {
 			cl.draw(g);
 		}
 
 		g.drawString("Score: " + c.food, 25, 30);
-		
-		
-		for(int i = 1; i <= c.lives; i++) {
+
+		for (int i = 1; i <= c.lives; i++) {
 			g.drawImage(heart, map.width - 30 * i, 15, null);
 		}
-		
+
 		if (!c.dead) {
 			if (!admin) {
-				
+
 			} else {
 				g.setColor(Color.red);
 				g.drawString("Admin Active", map.width / 2 - 40, 30);
 			}
-		}
-		else {
+		} else {
 			g.setColor(Color.black);
-			g.drawString("Press \"R\" to restart", map.width/2- 60, 30);
+			g.drawString("Press \"R\" to restart", map.width / 2 - 60, 30);
 		}
-		
+
 		g.setColor(Color.blue);
-		//cm.draw(g);
+		// cm.draw(g);
 
 		iterate();
 	}
-	
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -258,7 +253,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			if (c.dead) {
 				c.reset();
 				map.reset(map.scale);
-				//ghost2();
+				// ghost2();
 			}
 			break;
 		case KeyEvent.VK_DELETE:
@@ -274,7 +269,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			entered = "";
 			break;
 		case KeyEvent.VK_T:
-			for(FollowingGhost fgs : map.followers) {
+			for (FollowingGhost fgs : map.followers) {
 				System.out.println(fgs.pos.x + ", " + fgs.pos.y);
 			}
 			break;
@@ -293,13 +288,14 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 				killable = !killable;
 				break;
 			case '=':
-				for(Ghost g : map.ghosts) {
+				for (Ghost g : map.ghosts) {
 					g.speed--;
-					if(g.speed < 1) g.speed = 1;
+					if (g.speed < 1)
+						g.speed = 1;
 				}
 				break;
 			case '-':
-				for(Ghost g : map.ghosts) {
+				for (Ghost g : map.ghosts) {
 					g.speed++;
 				}
 				break;
@@ -310,7 +306,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		c.release(e);
+		// c.release(e);
 	}
 
 	@Override

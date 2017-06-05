@@ -16,7 +16,7 @@ public class Character {
 	public int y; // y position
 
 	public Vector start = new Vector();
-
+	
 	private int size;
 
 	int speed = 2;
@@ -89,6 +89,26 @@ public class Character {
 			counter--;
 		}
 	}
+	
+	public int getDir() {
+		if(up) {
+			return 1;
+		}
+		
+		if(down) {
+			return 2;
+		}
+		
+		if(left) {
+			return 3;
+		}
+		
+		if(right) {
+			return 4;
+		}
+		
+		return -1;
+	}
 
 	public void draw(Graphics g) {
 		
@@ -109,10 +129,6 @@ public class Character {
 		}
 		
 		g.drawImage(example, x, y, null);
-		//g.setColor(Color.yellow);
-		//g.fillOval(x, y, size, size);
-		//g.setColor(Color.black);
-		//g.drawOval(x, y, size, size);
 	}
 
 	//set keys pressed and released with directions
@@ -120,26 +136,50 @@ public class Character {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_D:
 			right = true;
+			left = false;
+			down = false;
+			up = false;
 			break;
 		case KeyEvent.VK_RIGHT:
 			right = true;
+			left = false;
+			down = false;
+			up = false;
 			break;
 		case KeyEvent.VK_A:
+			right = false;
 			left = true;
+			down = false;
+			up = false;
 			break;
 		case KeyEvent.VK_LEFT:
+			right = false;
 			left = true;
+			down = false;
+			up = false;
 			break;
 		case KeyEvent.VK_S:
+			right = false;
+			left = false;
 			down = true;
+			up = false;
 			break;
 		case KeyEvent.VK_DOWN:
+			right = false;
+			left = false;
 			down = true;
+			up = false;
 			break;
 		case KeyEvent.VK_W:
+			right = false;
+			left = false;
+			down = false;
 			up = true;
 			break;
 		case KeyEvent.VK_UP:
+			right = false;
+			left = false;
+			down = false;
 			up = true;
 			break;
 		}
@@ -187,18 +227,30 @@ public class Character {
 	}
 	
 	//character eats cherry and ghosts stop
-	public void eatCherry(ArrayList<Powerup> powerup, ArrayList<Ghost> ghosts, ArrayList<FollowingGhost> fgs, ArrayList<Pinky> pinky) {
+	public void eatCherry(ArrayList<Powerup> powerup, ArrayList<Ghost> ghosts, ArrayList<FollowingGhost> fgs, ArrayList<Pinky> pinky, ArrayList<Inky> inky, ArrayList<Clyde> clyde) {
 		for(int i = powerup.size() - 1; i >= 0; i--) {
 			if((powerup.get(i).pos.x == x) && (powerup.get(i).pos.y == y)) {
 				this.powerup++;
 				powerup.remove(i);
 				
 				for(Ghost ghost: ghosts) {
-					ghost.counter = 100;
+					ghost.counter = 200/ghost.speed;
 				}
 				
 				for(FollowingGhost ghost : fgs) {
-					ghost.counter = 100;
+					ghost.counter = 200/ghost.speed;
+				}
+				
+				for(Pinky p : pinky) {
+					p.counter = 200/p.speed;
+				}
+				
+				for(Inky ink : inky) {
+					ink.counter = 200/ink.speed;
+				}
+				
+				for(Clyde c : clyde) {
+					c.counter = 200/c.speed;
 				}
 			}
 		}
@@ -214,74 +266,61 @@ public class Character {
 
 	//when a ghost eats pacman, subtract one life and return to original starting position
 	public void death(ArrayList<Ghost> g, ArrayList<FollowingGhost> fg, ArrayList<Pinky> pinky, ArrayList<Inky> inky, ArrayList<Clyde> clyde) {
+		boolean restart = false;
+		
 		for (Ghost gs : g) {
 			if (gs.pos.x == x && gs.pos.y == y) {
-				lives --;
-				x = (int) start.x;
-				y = (int) start.y;
-
-				if (lives == 0) {
-					dead = true;
-				}
-				
-				for(FollowingGhost fgs : fg) {
-					fgs.pos = new Vector(fgs.start.x, fgs.start.y);
-				}
+				restart = true;
 			}
 		}
 		
 		for (FollowingGhost gs : fg) {
 			if (gs.pos.x == x && gs.pos.y == y) {
-				lives --;
-				x = (int) start.x;
-				y = (int) start.y;
-				
-				gs.pos = new Vector(gs.start.x, gs.start.y);
-
-				if (lives == 0) {
-					dead = true;
-				}
+				restart = true;
 			}
 		}
 		
 		for(Pinky p : pinky) {
 			if(p.pos.x == x && p.pos.y == y) {
-				lives--;
-				x = (int) start.x;
-				y = (int) start.y;
-				
-				p.pos = new Vector(p.start.x, p.start.y);
-
-				if (lives == 0) {
-					dead = true;
-				}
+				restart = true;
 			}
 		}
 		
 		for(Inky i : inky) {
 			if(i.pos.x == x && i.pos.y == y) {
-				lives--;
-				x = (int) start.x;
-				y = (int) start.y;
-				
-				i.pos = new Vector(i.start.x, i.start.y);
-
-				if (lives == 0) {
-					dead = true;
-				}
+				restart = true;
 			}
 		}
 		for(Clyde cl : clyde) {
 			if(cl.pos.x == x && cl.pos.y == y) {
-				lives--;
-				x = (int) start.x;
-				y = (int) start.y;
-				
-				cl.pos = new Vector(cl.start.x, cl.start.y);
-
-				if (lives == 0) {
-					dead = true;
-				}
+				restart = true;
+			}
+		}
+		
+		if(restart) {
+			lives--;
+			
+			for(FollowingGhost fgs : fg) {
+				fgs.restart();
+			}
+			
+			for(Inky i : inky) {
+				i.restart();
+			}
+			
+			for(Pinky p : pinky) {
+				p.restart();
+			}
+			
+			for(Clyde c : clyde) {
+				c.restart();
+			}
+			
+			x = start.x();
+			y = start.y();
+			
+			if(lives == 0) {
+				dead = true;
 			}
 		}
 	}
@@ -294,7 +333,7 @@ public class Character {
 		}
 		
 		if(y < 0) {
-			y = h;
+			y = h - size;
 		} else if(y > h) {
 			y = 0;
 		}

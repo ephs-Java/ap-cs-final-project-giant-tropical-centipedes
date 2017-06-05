@@ -10,34 +10,7 @@ public class Inky extends FollowingGhost{
 		// TODO Auto-generated constructor stub
 	}
 	
-	/*@Override
-	public void move(Vector target, ArrayList<Wall> walls, Character c) {
-		
-		Vector newVector = new Vector(target.x, target.y);
-		double x;
-		double y;
-		
-		if(up) {
-			x = (double) target.x;
-			y = (double) target.y - 2;
-		} else if (down) {
-			x = (double) target.x();
-			y = (double) target.y + 2;
-		} else if (right) {
-			x = (double) target.x + 2;
-			y = (double) target.y();
-		} else if (left) {
-			x = (double) target.x - 2;
-			y = (double) target.y();
-		}
-		
-		pos.x = Math.sqrt((Math.pow(pos.x - c.x, 2)) + (Math.pow(pos.y - c.y, 2)));
-		
-		//super.move(newPos, walls);
-	}*/
-	
-	@Override
-	public void move(Vector target, ArrayList<Wall> walls) {
+	public void move(Vector target, Vector blinky, ArrayList<Wall> walls, int dir) {
 		
 		Vector newVector = new Vector(target.x, target.y); 
 		
@@ -48,24 +21,26 @@ public class Inky extends FollowingGhost{
 			t = new Vector(corner.x, corner.y);
 		}
 		
-		if (up) {
-			pos.x = target.x;
-			pos.y = target.y - 2;
-		} else if (down) {
-			pos.x = target.x;
-			pos.y = target.y + 2;
-		} else if (right) {
-			pos.x = target.x + 2;
-			pos.y = target.y;
-		} else if (left) {
-			pos.x = target.y - 2;
-			pos.y = target.y;
+		if (dir == 1) { //Up
+			newVector = new Vector(target.x, target.y - size * 2);
+		} else if (dir == 2) { //Down
+			newVector = new Vector(target.x, target.y + size * 2);
+		} else if (dir == 3) { //Left
+			newVector = new Vector(target.x - size * 2, target.y);
+		} else if (dir == 4) { //Right
+			newVector = new Vector(target.x + size * 2, target.y);
 		}
+		
+		Vector v = new Vector(target.x, target.y);
+		
+		v.sub(blinky);
+		
+		v.mult(2);
+		
+		v.x -= (v.x % size);
+		v.y -= (v.x % size);
 			
-		
-		
-		Vector newPos = new Vector(pos.x, pos.y);
-		super.move(newPos, walls);
+		super.move(v, walls);
 		
 	}
 	

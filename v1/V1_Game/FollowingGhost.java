@@ -21,7 +21,7 @@ public class FollowingGhost extends Ghost {
 
 	public FollowingGhost(int x, int y, int scale, String name) {
 		super(x, y, scale, name);
-		speed = 2;
+		speed = 3;
 
 		up = false;
 		down = false;
@@ -30,6 +30,15 @@ public class FollowingGhost extends Ghost {
 
 		start = new Vector(x, y);
 		corner = new Vector(start.x, start.y);
+	}
+	
+	public void restart() {
+		up = false;
+		down = false;
+		left = false;
+		right = true;
+		
+		pos = new Vector(start.x, start.y);
 	}
 
 	public void setCorner(int x, int y) {
