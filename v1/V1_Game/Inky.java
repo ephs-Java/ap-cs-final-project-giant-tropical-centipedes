@@ -10,8 +10,8 @@ public class Inky extends FollowingGhost{
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
-	public void move(Vector target, ArrayList<Wall> walls) {
+	/*@Override
+	public void move(Vector target, ArrayList<Wall> walls, Character c) {
 		
 		Vector newVector = new Vector(target.x, target.y);
 		double x;
@@ -31,9 +31,42 @@ public class Inky extends FollowingGhost{
 			y = (double) target.y();
 		}
 		
-		//pos.x = Math.sqrt(((followers.pos.x) - (target.x))^2 + ((followers.pos.y) - (target.y))^2);
+		pos.x = Math.sqrt((Math.pow(pos.x - c.x, 2)) + (Math.pow(pos.y - c.y, 2)));
 		
 		//super.move(newPos, walls);
+	}*/
+	
+	@Override
+	public void move(Vector target, ArrayList<Wall> walls) {
+		
+		Vector newVector = new Vector(target.x, target.y); 
+		
+		Vector t = new Vector();
+		if (!scatter) {
+			t = new Vector(target.x, target.y);
+		} else {
+			t = new Vector(corner.x, corner.y);
+		}
+		
+		if (up) {
+			pos.x = target.x;
+			pos.y = target.y - 2;
+		} else if (down) {
+			pos.x = target.x;
+			pos.y = target.y + 2;
+		} else if (right) {
+			pos.x = target.x + 2;
+			pos.y = target.y;
+		} else if (left) {
+			pos.x = target.y - 2;
+			pos.y = target.y;
+		}
+			
+		
+		
+		Vector newPos = new Vector(pos.x, pos.y);
+		super.move(newPos, walls);
+		
 	}
 	
 	

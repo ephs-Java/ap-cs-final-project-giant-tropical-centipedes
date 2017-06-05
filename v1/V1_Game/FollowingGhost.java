@@ -212,4 +212,5 @@ public class FollowingGhost extends Ghost {
 			counter--;
 		}
 	}
+
 }

@@ -9,8 +9,8 @@ public class Clyde extends FollowingGhost{
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
-	public void move(Vector target, ArrayList<Wall> walls) {
+	/*@Override
+	public void move(Vector target, ArrayList<Wall> walls,Character c) {
 		Vector newVector = new Vector(target.x, target.y);
 		
 		if(target.x - pos.x >=8) {
@@ -22,6 +22,26 @@ public class Clyde extends FollowingGhost{
 		
 		
 		//super.move(newPos, walls);
+	}*/
+	
+	@Override
+	public void move(Vector target, ArrayList<Wall> walls) {
+		
+		Vector newVector = new Vector(target.x, target.y); 
+		
+		Vector t = new Vector();
+		if (!scatter) {
+			t = new Vector(target.x, target.y);
+		} else {
+			t = new Vector(corner.x, corner.y);
+		}
+		
+		/*if(target.x - pos.x >=8) {
+			pos.x = target.x;
+			pos.y = target.y;
+		} else {
+			
+		}*/
 	}
 
 }
