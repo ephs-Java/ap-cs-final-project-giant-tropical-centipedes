@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="Ghost/" kind="src" path="v1"/>
 	<classpathentry kind="src" path="V2"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="Ghost/" kind="src" path="v1"/>
+	<classpathentry kind="src" path="Files"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

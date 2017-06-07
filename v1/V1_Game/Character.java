@@ -43,11 +43,11 @@ public class Character {
 		
 		//set images for pacman in up, down, left, and right directions
 		try {
-			example = ImageIO.read(new File("PacMan.png"));
-			u = ImageIO.read(new File("PacManUp.png"));
-			d = ImageIO.read(new File("PacManDown.png"));
-			l = ImageIO.read(new File("PacManLeft.png"));
-			r = ImageIO.read(new File("PacManRight.png"));
+			example = ImageIO.read(Runner.class.getResource("/PacMan.png"));
+			u = ImageIO.read(Runner.class.getResource("/PacManUp.png"));
+			d = ImageIO.read(Runner.class.getResource("/PacManDown.png"));
+			l = ImageIO.read(Runner.class.getResource("/PacManLeft.png"));
+			r = ImageIO.read(Runner.class.getResource("/PacManRight.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

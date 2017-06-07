@@ -18,7 +18,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 
 	int w = 500, h = 500;
 
-	Map map = new Map(new File("map.txt"), 25);
+	Map map = new Map("/map.txt", 25);
 
 	boolean admin = false;
 
@@ -165,7 +165,7 @@ public class Runner extends JPanel implements ActionListener, KeyListener {
 			start = false;
 
 			try {
-				heart = ImageIO.read(new File("Heart.png"));
+				heart = ImageIO.read(Runner.class.getResource("/Heart.png"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

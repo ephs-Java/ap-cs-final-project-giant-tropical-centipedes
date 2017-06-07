@@ -28,7 +28,7 @@ public class Ghost {
 		size = scale;
 		
 		try {
-			image = ImageIO.read(new File(name));
+			image = ImageIO.read(Runner.class.getResource("/" + name));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

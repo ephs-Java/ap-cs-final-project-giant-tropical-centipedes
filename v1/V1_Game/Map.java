@@ -1,7 +1,11 @@
 package V1_Game;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,12 +39,6 @@ public class Map {
 	
 	//start with an empty map
 	String map = "";
-
-	// map constructor
-	public Map(String map, int scale) {
-		makeMap(map, scale);
-
-	}
 	
 	public void makeMap(String map, int scale) {
 		int mx = 0, my = 0;
@@ -142,22 +140,32 @@ public class Map {
 
 	}
 	
-	public Map(File file, int scale) {
-		Scanner s;
+	public Map(String file, int scale) {
+		
+		BufferedReader br;
 		try {
-			s = new Scanner(file);
-		} catch (FileNotFoundException e) {
+			br = new BufferedReader(
+					new InputStreamReader(Runner.class.getResource(file).openStream()));
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			s = null;
+			br = null;
 			e.printStackTrace();
 		}
 		
+		
 		map = "";
 		
-		while(s.hasNextLine()) {
-			String next = s.nextLine();
-			map += next;
-			map  += "-";
+		String inputLine;
+		
+		try {
+			while((inputLine = br.readLine()) != null) {
+				String next = inputLine;
+				map += next;
+				map  += "-";
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		for(int i = 0; i < map.length(); i++) {

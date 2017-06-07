@@ -20,7 +20,7 @@ public class Food {
 		pos = new Vector(x, y);
 		
 		try {
-			image = ImageIO.read(new File("Food.png"));
+			image = ImageIO.read(Runner.class.getResource("/Food.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

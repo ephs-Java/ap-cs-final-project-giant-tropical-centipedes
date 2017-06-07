@@ -20,7 +20,7 @@ public class Powerup {
 		size = scale/2;
 		this.scale = scale;
 		try {
-			cherry = ImageIO.read(new File("cherries.png"));
+			cherry = ImageIO.read(Runner.class.getResource("/cherries.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
